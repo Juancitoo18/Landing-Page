@@ -1,0 +1,593 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins", sans-serif;
+  font-size: 1em;
+}
+
+body {
+  position: relative;
+  height: 100%;
+}
+
+p,
+h2 {
+  user-select: none;
+}
+
+/* Contenedor de los contenedores de los contenedores de background */
+.carousel {
+  position: absolute;
+  height: inherit;
+  width: 100%;
+}
+
+/* contenedor de contenedor de background */
+.carousel-inner,
+.carousel-item,
+.carousel-item img {
+  height: 100%;
+}
+
+/* Contenedor de background */
+.carousel-item {
+  transition: transform 2s ease, opacity .5s ease-out;
+}
+
+/* Background */
+.carousel-item img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Contenedor del nav */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(7, 1, 1, 0.438);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+  backdrop-filter: blur(50px);
+  border-bottom: 2px solid rgba(165, 160, 160, 0.2);
+}
+
+/* Efecto de reflexion para el nav */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+  transition: .5s;
+}
+
+/* parte del efecto */
+.header:hover::before {
+  left: 100%;
+}
+
+/* logo del nav */
+.header .logo {
+  font-size: 1.7rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* links del nav */
+.nav a {
+  position: relative;
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 40px;
+}
+
+/* efecto de subrayo de los links */
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: .5s;
+}
+
+/* parte de los efectos */
+.nav a:hover::after {
+  transform: scaleX(1);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  padding: 100px 10px;
+  background-color: rgba(17, 17, 17, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Contenedor principal para texto introductorio y forms */
+.inicio {
+  display: flex;
+  position: relative;
+  z-index: 20;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  min-height: 600px;
+  transition: height .2s ease;
+}
+
+/* Texto introductorio */
+.contenido {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform .5s;
+  width: 50%;
+  color: #fff;
+}
+
+
+/* Titulo de la pagina */
+.contenido h2 {
+  font-size: 200%;
+  letter-spacing: .03rem;
+  font-weight: bold;
+}
+
+/* Margin del texto introductorio */
+.contenido p {
+  font-size: 100%;
+  margin: 10px 0 40px;
+  /* color:#fff; */
+}
+
+/* Estilo del boton del texto introductorio */
+.contenido a {
+  color: #fff;
+  background: rgba(129, 118, 118, 0.4);
+  box-shadow: 0 8px 10px rgba(56, 52, 52, 0.5);
+  text-decoration: none;
+  border: 2px solid #fff;
+  border-radius: 40px;
+  font-weight: 500;
+  padding: 10px 40px;
+  transition: .5s;
+  user-select: none;
+  width: 300px;
+}
+
+/* Parte del estilo del boton */
+.contenido a:hover {
+  background: #1e0b04;
+}
+
+
+/* Contenedor de forms */
+.wrapper {
+  max-width: 400px;
+  width: 97vw;
+  height: 440px;
+  background: rgba(255, 255, 255, .1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.637);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform .5s ease, height .2s ease;
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  user-select: none;
+}
+
+/* .active se agrega al mostrar el register */
+.wrapper.active {
+  height: 520px;
+}
+
+.wrapper.contacto {
+  height: 600px;
+}
+
+/* pantalla grande */
+@media (min-width: 1215px) {
+  main {
+    overflow: hidden;
+  }
+
+  .inicio {
+    flex-direction: row;
+  }
+
+  .contenido {
+    position: absolute;
+  }
+
+  .contenido.active,
+  .contenido.contacto {
+    transform: translateX(-40%);
+  }
+
+  .wrapper {
+    position: absolute;
+    transform: scaleX(0);
+  }
+
+  /* Mostrar el contenedor */
+  .wrapper.active-popup {
+    transform: scaleX(1) translateX(100%);
+  }
+}
+
+/* pantalla chica */
+@media (max-width: 1214px) {
+  .inicio {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contenido {
+    width: 70%;
+    object-fit: contain;
+    position: relative;
+  }
+
+  .contenido.active,
+  .contenido.contacto {
+    transform: translateY(-150vh);
+  }
+
+  .wrapper {
+    position: absolute;
+    transform: scaleY(0);
+  }
+
+  .wrapper.active-popup {
+    transform: scaleY(1);
+  }
+}
+
+/* form-box son el register y login */
+.wrapper .form-box {
+  width: 100%;
+  padding: 40px;
+}
+
+/* ocultar el form login al inicio */
+.wrapper .form-box.login {
+  transition: transform .18s ease;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* ocultar el login al elegir register y mostrar el register*/
+.wrapper.active .form-box.login,
+.wrapper.contacto .form-box.login {
+  transition: none;
+  transform: translateX(-400px);
+  visibility: hidden;
+}
+
+.wrapper.resumen .form-box.contacto {
+  transition: transform .18s ease;
+  transform: translateX(-400px);
+  visibility: hidden;
+}
+
+/* devolver el register a su poscicion permitiendo que se vea */
+.wrapper.active .form-box.register,
+.wrapper.contacto .form-box.contacto,
+.wrapper.resumen .form-box.resumen {
+  visibility: visible;
+  transition: transform .18s ease;
+  transform: translateX(0);
+}
+
+/* colocar el register a la derecha del login */
+.wrapper .form-box.register,
+.wrapper .form-box.contacto,
+.wrapper.resumen .form-box.contacto,
+.wrapper .form-box.resumen {
+  position: absolute;
+  transition: none;
+  transform: translateX(400px);
+  visibility: hidden;
+}
+
+
+/* icono X del contenedor de formularios */
+.wrapper .icon-close,
+.wrapper .icon-pdf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  background: #162938;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+  color: #fff
+}
+
+.wrapper .icon-pdf {
+  visibility: hidden;
+  top: 50px;
+  background-color: rgb(153, 47, 47);
+}
+
+.wrapper.resumen .icon-pdf {
+  visibility: visible;
+}
+
+/* titulos de los form */
+.form-box h2 {
+  font-size: 2em;
+  color: #fff;
+  text-align: center;
+}
+
+/* contenedores de los inputs */
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px solid #162938;
+  /*cambiar*/
+  margin: 30px 0;
+}
+
+/* label de los input */
+.input-box label,
+.datos {
+  position: absolute;
+  top: 50%;
+  left: 45px;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: #fff;
+  font-weight: 500;
+  pointer-events: none;
+  transition: top .5s, left .5s;
+}
+
+/* Levantar el label al escribir */
+.input-box input:focus~label,
+.input-box input:valid~label,
+.form-box.resumen .datos {
+  font-size: .8rem;
+  top: -14px;
+  left: 4px;
+}
+
+/* estilos de los inputs de los forms */
+.input-box input,
+.form-box.resumen .delResumen {
+  width: 90%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 90%;
+  color: #fff;
+  font-weight: 600;
+  padding: 0 35px 0 5px;
+}
+
+.form-box.resumen .delResumen {
+  display: flex;
+  position: relative;
+  left: 15px;
+  text-align: start;
+  align-items: center;
+}
+
+.input-boxTxT {
+  min-height: 1rem;
+  position: relative;
+  width: 100%;
+  border-bottom: 2px solid #162938;
+  margin: 30px 0;
+}
+
+#message,
+#messageR {
+  height: auto;
+  max-height: 115px;
+  overflow: hidden;
+  width: 100%;
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: #fff;
+  font-weight: 500;
+  padding: 0 35px 0 5px;
+}
+
+/* estilos de los iconos dentro de los inputs */
+.input-box .icon,
+span {
+  position: relative;
+  font-size: 1.2em;
+  color: #fff;
+  user-select: none;
+}
+
+.input-box .icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -2px;
+}
+
+/* es el contenedor de "recuerdame" y "Olvidaste tu contraseña?"*/
+.remember-forgot {
+  font-size: .9em;
+  color: #000000;
+  font-weight: 500;
+  margin: -15px 0 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* estilos para el checkbox */
+.remember-forgot label input {
+  accent-color: #1e0b04;
+  margin-right: 3px;
+}
+
+/* estilos del contenedor mostrado arriba */
+.remember-forgot a {
+  color: #000000;
+  text-decoration: none;
+}
+
+/* mostrar un subrayado en el link de olvidaste tu contraseña */
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+/* boron de los forms */
+.btn {
+  width: 100%;
+  height: 45px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+  /*cambiar*/
+  box-shadow: 0 8px 10px rgba(0, 0, 0, .5);
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Texto "No tenes una cuenta? registrarse/ingresar" */
+.login-register {
+  font-size: .9em;
+  color: #000000;
+  /*cambiar*/
+  text-align: center;
+  font-weight: 500;
+  margin: 25px 0 10px;
+}
+
+/* registrarse/ingresar */
+.login-register p span {
+  color: #000000;
+  /*cambiar*/
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* estilos de registrarse/ingresar al realizar hover */
+.login-register p span:hover {
+  text-decoration: underline;
+}
+
+
+
+/* Contenedor principal del footer */
+.contenedor-footer {
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  background-color: rgba(7, 1, 1, 0.445);
+  color: #fff;
+  text-align: center;
+}
+
+/* contenedor footer superior */
+.contenedor-footer .grupo-1 {
+  display: flex;
+  justify-content: space-around;
+  padding: 45px 15px;
+  grid-template-columns: repeat(3, ifr);
+  grid-gap: 50px;
+}
+
+/* Logo del footer */
+.contenedor-footer .grupo-1 .box figure {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Links del footer */
+.contenedor-footer a {
+  color: #fff;
+}
+
+/* Sobre nosotros */
+.contenedor-footer .grupo-1 .box h2 {
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+
+
+.contenedor-footer .grupo-1 .red-social a {
+  display: inline-block;
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  margin-right: 10px;
+  background-color: rgba(7, 1, 1, 0.438);
+  text-align: center;
+  transition: all 300 ms ease;
+}
+
+.contenedor-footer .grupo-1 .red-social a:hover {
+  color: rgb(223, 214, 139);
+}
+
+.contenedor-footer .grupo-2 {
+  background-color: rgba(7, 1, 1, 0.863);
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.contenedor-footer .grupo-2 small {
+  font-size: 15px;
+}
+
+@media screen and (max-width:800px) {
+  .contenedor-footer .grupo-1 {
+    display: block;
+    grid-template-columns: repeat(1, ifr);
+    padding: 35px 0px;
+  }
+}
+
+.imprimir {
+  background: #101e29;
+}
+
+.ocultar {
+  display: none;
+  visibility: hidden;
+}
